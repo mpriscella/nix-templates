@@ -40,11 +40,6 @@
     devShells = forEachSupportedSystem (
       {pkgs}: {
         default = pkgs.mkShell {
-          buildInputs = [
-            (pkgs.writeShellScriptBin "wp-env" ''
-              npm run wp-env "$@"
-            '')
-          ];
           # The Nix packages provided in the environment.
           packages = with pkgs; [
             nodejs_24
@@ -58,9 +53,16 @@
           # Add any shell logic you want executed when the environment is
           # activated.
           shellHook = ''
-            echo "WordPress"
-            echo "- Make sure to run npm install"
-            echo "npm run wp-env start"
+            echo "WP Development Environment"
+            echo ""
+            echo "IMPORTANT: Make sure to run npm install"
+            echo ""
+            echo "Common wp-env commands:"
+            echo "  wp-env start                  # Build and start the containers"
+            echo "  wp-env stop                   # Stop the containers"
+            echo "  wp-env destroy                # Remove containers and volumes"
+            echo "  wp-env logs                   # Show container logs"
+            echo "  wp-env run cli wp <command>   # Run WP-CLI inside the WordPress container"
           '';
         };
       }
