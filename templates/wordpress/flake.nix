@@ -1,9 +1,6 @@
-# Needs to install:
-# - npm
-# - wp-env npm package https://www.npmjs.com/package/@wordpress/env
-# Will use a docker container for the MySQL server
 {
-  description = "A Nix Flake to create a quick WordPress development environment";
+  description = "A minimal Nix flake template for reproducible multi-system
+  builds and dev environments.";
 
   inputs = {
     nixpkgs = {
@@ -41,37 +38,26 @@
       {pkgs}: {
         default = pkgs.mkShell {
           # The Nix packages provided in the environment.
-          packages = with pkgs; [
-            nodejs_24
-            php
-            php84Packages.composer
-          ];
+          packages = with pkgs; [];
 
           # Set any environment variables for your development environment.
           env = {};
 
           # Add any shell logic you want executed when the environment is
           # activated.
-          shellHook = ''
-            echo "WP Development Environment"
-            echo ""
-            echo "IMPORTANT: Make sure to run npm install"
-            echo ""
-            echo "Common wp-env commands:"
-            echo "  wp-env start                  # Build and start the containers"
-            echo "  wp-env stop                   # Stop the containers"
-            echo "  wp-env destroy                # Remove containers and volumes"
-            echo "  wp-env logs                   # Show container logs"
-            echo "  wp-env run cli wp <command>   # Run WP-CLI inside the WordPress container"
-          '';
+          shellHook = "";
         };
       }
     );
 
     templates = {
-      wordpress = {
-        path = ./templates/wordpress;
-        description = "A minimal Wordpress development environment.";
+      default = {
+        path = ./default;
+        description = "A standard WordPress dev environment powered by wp-env";
+      };
+      develop = {
+        path = ./develop;
+        description = "A bootstrapped development version of WordPress core";
       };
     };
 

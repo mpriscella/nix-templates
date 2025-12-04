@@ -1,5 +1,10 @@
 # WordPress Development Environment
 
+
+TODO: Is there a way to download the latest stable version of WordPress entirely
+and run it using wp-env?
+
+
 This Nix flake provides a local WordPress development environment using the
 [`@wordpress/env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/#add-mu-plugins-and-other-mapped-directories)
 npm package and Docker.

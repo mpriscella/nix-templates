@@ -1,6 +1,9 @@
+# Needs to install:
+# - npm
+# - wp-env npm package https://www.npmjs.com/package/@wordpress/env
+# Will use a docker container for the MySQL server
 {
-  description = "A minimal Nix flake template for reproducible multi-system
-  builds and dev environments.";
+  description = "A Nix Flake to create a quick WordPress development environment";
 
   inputs = {
     nixpkgs = {
@@ -39,8 +42,6 @@
         default = pkgs.mkShell {
           # The Nix packages provided in the environment.
           packages = with pkgs; [
-            ddev
-            mkcert
             nodejs_24
             php
             php84Packages.composer
@@ -52,12 +53,27 @@
           # Add any shell logic you want executed when the environment is
           # activated.
           shellHook = ''
-            mkcert -install
-            # composer create-project drupal/recommended-project .
+            echo "WP Development Environment"
+            echo ""
+            echo "IMPORTANT: Make sure to run npm install"
+            echo ""
+            echo "Common wp-env commands:"
+            echo "  wp-env start                  # Build and start the containers"
+            echo "  wp-env stop                   # Stop the containers"
+            echo "  wp-env destroy                # Remove containers and volumes"
+            echo "  wp-env logs                   # Show container logs"
+            echo "  wp-env run cli wp <command>   # Run WP-CLI inside the WordPress container"
           '';
         };
       }
     );
+
+    templates = {
+      wordpress = {
+        path = ./templates/wordpress;
+        description = "A minimal Wordpress development environment.";
+      };
+    };
 
     # Default checks for this flake.
     checks = forEachSupportedSystem (
