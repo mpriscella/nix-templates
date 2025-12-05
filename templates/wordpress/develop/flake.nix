@@ -1,6 +1,5 @@
 {
-  description = "A minimal Nix flake template for reproducible multi-system
-  builds and dev environments.";
+  description = "Bootstraps a WordPress core development setup.";
 
   inputs = {
     nixpkgs = {
@@ -39,8 +38,6 @@
         default = pkgs.mkShell {
           # The Nix packages provided in the environment.
           packages = with pkgs; [
-            ddev
-            mkcert
             nodejs_24
             php
             php84Packages.composer
@@ -52,8 +49,18 @@
           # Add any shell logic you want executed when the environment is
           # activated.
           shellHook = ''
-            mkcert -install
-            # composer create-project drupal/recommended-project .
+            if [[ ! -e "wp-config.php" ]]; then
+              git clone https://github.com/WordPress/wordpress-develop.git --depth 1 tmp
+              mv tmp/* .
+              mv tmp/.* .
+              rm -rf tmp
+              rm -rf .git
+            fi
+            echo "Run the following commands:"
+            echo "  \$ npm install"
+            echo "  \$ npm run env:start     # Starts the environment"
+            echo "  \$ npm run env:install   # Installs the environment"
+            echo "  \$ npm run dev           # Builds the website and watches for changes"
           '';
         };
       }

@@ -51,9 +51,9 @@
     );
 
     templates = {
-      wordpress = {
-        path = ./templates/wordpress;
-        description = "A minimal Wordpress development environment.";
+      drupal = {
+        path = ./templates/drupal;
+        description = "A minimal Drupal development environment";
       };
     };
 
