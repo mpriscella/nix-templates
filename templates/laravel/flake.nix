@@ -1,10 +1,10 @@
 {
-  description = "A minimal Nix flake template for reproducible multi-system
-  builds and dev environments.";
+  description = "Dev environment for a Laravel application or package.
+  Scaffolds a fresh app if the directory doesn't contain one yet.";
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     };
   };
 
@@ -37,21 +37,33 @@
     devShells = forEachSupportedSystem (
       {pkgs}: {
         default = pkgs.mkShell {
-          # The Nix packages provided in the environment.
           packages = with pkgs; [
-            laravel
-            nodejs_24
-            php
+            # Pin the PHP version the project targets explicitly (php83,
+            # php84, ...) so upgrading nixpkgs never changes it silently.
+            # Extensions live on the package: php84.withExtensions or
+            # `php84.buildEnv { extraConfig = ...; }` for ini tweaks.
+            php84
             php84Packages.composer
+
+            # The Laravel installer, used by the scaffolding below.
+            laravel
+
+            # Vite / asset tooling used by the Laravel starter kits.
+            nodejs_24
           ];
 
           # Set any environment variables for your development environment.
           env = {};
 
-          # Add any shell logic you want executed when the environment is
-          # activated.
+          # Scaffold a new application on first entry. The artisan check
+          # keeps this a no-op in existing apps and packages.
           shellHook = ''
-            echo "Laravel"
+            if [[ ! -e "artisan" ]]; then
+              laravel new tmp --database=sqlite --pest --npm --no-interaction
+              mv tmp/* .
+              mv tmp/.* . 2>/dev/null || true
+              rm -rf tmp
+            fi
           '';
         };
       }

@@ -1,7 +1,0 @@
-{
-  "plugins": [],
-  "themes": [],
-  "mappings": {
-    "wp-content/plugins": "./plugins"
-  }
-}

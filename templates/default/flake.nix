@@ -1,9 +1,10 @@
 {
-  description = "Bootstraps a WordPress core development setup.";
+  description = "A minimal Nix flake template for reproducible multi-system
+  builds and dev environments.";
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     };
   };
 
@@ -37,31 +38,14 @@
       {pkgs}: {
         default = pkgs.mkShell {
           # The Nix packages provided in the environment.
-          packages = with pkgs; [
-            nodejs_24
-            php
-            php84Packages.composer
-          ];
+          packages = with pkgs; [];
 
           # Set any environment variables for your development environment.
           env = {};
 
           # Add any shell logic you want executed when the environment is
           # activated.
-          shellHook = ''
-            if [[ ! -e "wp-config.php" ]]; then
-              git clone https://github.com/WordPress/wordpress-develop.git --depth 1 tmp
-              mv tmp/* .
-              mv tmp/.* .
-              rm -rf tmp
-              rm -rf .git
-            fi
-            echo "Run the following commands:"
-            echo "  \$ npm install"
-            echo "  \$ npm run env:start     # Starts the environment"
-            echo "  \$ npm run env:install   # Installs the environment"
-            echo "  \$ npm run dev           # Builds the website and watches for changes"
-          '';
+          shellHook = "";
         };
       }
     );
