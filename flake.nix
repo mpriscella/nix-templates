@@ -1,6 +1,5 @@
 {
-  description = "Reusable Nix flake templates for project development
-  environments.";
+  description = "Reusable Nix flake templates for project development environments.";
 
   inputs = {
     nixpkgs = {
@@ -53,18 +52,15 @@
     templates = {
       default = {
         path = ./templates/default;
-        description = "A minimal Nix flake template
-        for reproducible multi-system builds and dev environments.";
+        description = "A minimal Nix flake template for reproducible multi-system builds and dev environments.";
       };
       laravel = {
         path = ./templates/laravel;
-        description = "Dev environment for a Laravel application or
-        package; scaffolds a fresh app if none exists.";
+        description = "Dev environment for a Laravel application or package; scaffolds a fresh app if none exists.";
       };
       zig = {
         path = ./templates/zig;
-        description = "Dev environment for a Zig project with the
-        toolchain pinned via zig-overlay.";
+        description = "Dev environment for a Zig project with the toolchain pinned via zig-overlay.";
       };
     };
 

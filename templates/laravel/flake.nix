@@ -1,7 +1,5 @@
 {
-  description = "Dev environment for a Laravel application or package.
-  Ships the Laravel installer so an empty directory can be scaffolded on
-  demand.";
+  description = "Dev environment for a Laravel application or package. Ships the Laravel installer so an empty directory can be scaffolded on demand.";
 
   inputs = {
     nixpkgs = {
