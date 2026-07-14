@@ -13,16 +13,15 @@ direnv allow
 | Template  | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
 | `default` | Minimal multi-system flake with dev shell and format checks         |
-| `drupal`  | Drupal development environment                                      |
-| `laravel` | Laravel app/package dev shell; scaffolds a fresh app if none exists |
+| `laravel` | Laravel app/package dev shell; installer included for scaffolding   |
 | `zig`     | Zig dev shell with the toolchain pinned via zig-overlay             |
 
 ### `laravel`
 
 The dev shell pins PHP (edit `php84` in `flake.nix` to match the project)
-and ships Composer, the Laravel installer, and Node. On first entry, if the
-directory contains no `artisan`, it scaffolds a fresh app
-(`laravel new --database=sqlite --pest --npm`).
+and ships Composer, the Laravel installer, and Node. It does not touch an
+existing app. If the directory has no `artisan`, the shell prints a hint to
+run `laravel new .` — scaffolding stays opt-in.
 
 ### `zig`
 

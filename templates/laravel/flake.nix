@@ -1,6 +1,7 @@
 {
   description = "Dev environment for a Laravel application or package.
-  Scaffolds a fresh app if the directory doesn't contain one yet.";
+  Ships the Laravel installer so an empty directory can be scaffolded on
+  demand.";
 
   inputs = {
     nixpkgs = {
@@ -45,7 +46,8 @@
             php84
             php84Packages.composer
 
-            # The Laravel installer, used by the scaffolding below.
+            # The Laravel installer, for scaffolding a new app on demand
+            # (see the hint in shellHook).
             laravel
 
             # Vite / asset tooling used by the Laravel starter kits.
@@ -55,14 +57,11 @@
           # Set any environment variables for your development environment.
           env = {};
 
-          # Scaffold a new application on first entry. The artisan check
-          # keeps this a no-op in existing apps and packages.
+          # Hint how to scaffold when the directory has no app yet. The
+          # artisan check keeps this quiet in existing apps and packages.
           shellHook = ''
             if [[ ! -e "artisan" ]]; then
-              laravel new tmp --database=sqlite --pest --npm --no-interaction
-              mv tmp/* .
-              mv tmp/.* . 2>/dev/null || true
-              rm -rf tmp
+              echo "No Laravel app here yet — run: laravel new ."
             fi
           '';
         };

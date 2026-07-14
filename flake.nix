@@ -56,10 +56,6 @@
         description = "A minimal Nix flake template
         for reproducible multi-system builds and dev environments.";
       };
-      drupal = {
-        path = ./templates/drupal;
-        description = "A minimal Drupal development environment";
-      };
       laravel = {
         path = ./templates/laravel;
         description = "Dev environment for a Laravel application or
