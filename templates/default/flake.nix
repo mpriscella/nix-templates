@@ -1,6 +1,5 @@
 {
-  description = "A minimal Nix flake template for reproducible multi-system
-  builds and dev environments.";
+  description = "A minimal Nix flake template for reproducible multi-system builds and dev environments.";
 
   inputs = {
     nixpkgs = {
