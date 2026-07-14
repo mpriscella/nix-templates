@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@wordpress/env": "^10.35.0"
-  },
-  "scripts": {
-    "wp-env": "wp-env"
-  }
-}

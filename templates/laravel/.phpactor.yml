@@ -1,3 +1,0 @@
-indexer.stub_paths:
-  - "%project_root%/vendor/laravel/framework/src/Illuminate/Support"
-  - "%project_root%/vendor/laravel/framework/src/Illuminate/Foundation"
